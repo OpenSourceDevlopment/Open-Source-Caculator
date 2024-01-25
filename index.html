@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Source Hub</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .calculator {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            margin: auto;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .active-tab {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        .calculator-display {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 10px;
+            font-size: 24px;
+            text-align: right;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .calculator-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .calculator-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <div class="tabs">
+        <a class="tab active-tab" href="donation.html">Donate</a>
+        <a class="tab" href="contribution.html">Contribute</a>
+    </div>
+
+    <div class="calculator-display" id="calculatorDisplay">0</div>
+
+    <div class="calculator-buttons" onclick="handleButtonClick(event)">
+        <button class="calculator-button">7</button>
+        <button class="calculator-button">8</button>
+        <button class="calculator-button">9</button>
+        <button class="calculator-button">/</button>
+        <button class="calculator-button">4</button>
+        <button class="calculator-button">5</button>
+        <button class="calculator-button">6</button>
+        <button class="calculator-button">*</button>
+        <button class="calculator-button">1</button>
+        <button class="calculator-button">2</button>
+        <button class="calculator-button">3</button>
+        <button class="calculator-button">-</button>
+        <button class="calculator-button">0</button>
+        <button class="calculator-button">.</button>
+        <button class="calculator-button">+</button>
+        <button class="calculator-button" onclick="calculate()">=</button>
+        <button class="calculator-button" onclick="clearCalculator()">C</button>
+    </div>
+</div>
+
+<script>
+    let currentInput = '0';
+
+    function handleButtonClick(event) {
+        const buttonValue = event.target.innerText;
+
+        if (buttonValue === '=') {
+            calculate();
+        } else if (buttonValue === 'C') {
+            clearCalculator();
+        } else {
+            currentInput += buttonValue;
+            updateDisplay();
+        }
+    }
+
+    function calculate() {
+        try {
+            currentInput = eval(currentInput);
+            if (typeof currentInput === 'undefined' || isNaN(currentInput)) {
+                currentInput = 'Error';
+            }
+            currentInput = currentInput.toString();
+            updateDisplay();
+        } catch (error) {
+            currentInput = 'Error';
+            updateDisplay();
+        }
+    }
+
+    function clearCalculator() {
+        currentInput = '0';
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        const displayElement = document.getElementById('calculatorDisplay');
+        displayElement.innerText = currentInput;
+    }
+</script>
+
+</body>
+</html>
